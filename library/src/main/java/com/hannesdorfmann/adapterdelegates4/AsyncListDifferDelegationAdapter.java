@@ -170,13 +170,8 @@ public class AsyncListDifferDelegationAdapter<T> extends RecyclerView.Adapter {
         differ.submitList(items);
     }
 
-    public void setItems(final List<T> items, final ItemsCommittedCallback<T> callback) {
-        differ.submitList(items, new Runnable() {
-            @Override
-            public void run() {
-                callback.onCommitted(items);
-            }
-        });
+    public void setItems(final List<T> items, final Runnable callback) {
+        differ.submitList(items, callback);
     }
 
     @Override
