@@ -2,14 +2,14 @@ package com.hannesdorfmann.adapterdelegates4;
 
 import android.view.ViewGroup;
 
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.AdapterListUpdateCallback;
 import androidx.recyclerview.widget.AsyncDifferConfig;
 import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
 
 /**
  * An implementation of an Adapter that already uses a {@link AdapterDelegatesManager} pretty same as
@@ -170,6 +170,18 @@ public class AsyncListDifferDelegationAdapter<T> extends RecyclerView.Adapter {
         differ.submitList(items);
     }
 
+    public void setItems(final List<T> items, final ItemsCommittedCallback<T> callback) {
+        differ.submitList(items, new Runnable() {
+            @Override
+            public void run() {
+                callback.onCommitted(items);
+            }
+        });
+    }
+
+    interface ItemsCommittedCallback<T> {
+        void onCommitted(List<T> committedItems);
+    }
 
     @Override
     public int getItemCount() {
