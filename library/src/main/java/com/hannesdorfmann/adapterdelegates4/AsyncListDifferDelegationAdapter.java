@@ -179,10 +179,6 @@ public class AsyncListDifferDelegationAdapter<T> extends RecyclerView.Adapter {
         });
     }
 
-    interface ItemsCommittedCallback<T> {
-        void onCommitted(List<T> committedItems);
-    }
-
     @Override
     public int getItemCount() {
         return differ.getCurrentList().size();
